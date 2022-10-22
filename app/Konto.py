@@ -16,5 +16,6 @@ class Konto:
             self.pesel = "Niepoprawny pesel"
 
     def obsluga_kuponu_rabatowego(self, kupon):
-        if kupon != None and re.search("PROM_", kupon) != None and len(kupon) == 8:
+        if (kupon != None and re.search("PROM_", kupon) != None and len(kupon) == 8
+        and (int(self.pesel[2:4]) > 20 or int(self.pesel[:2]) > 60)):
             self.saldo = 50
