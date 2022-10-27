@@ -7,6 +7,7 @@ class TestCreateBankAccount(unittest.TestCase):
     imie = "Dariusz"
     nazwisko = "Januszewski"
     pesel = "99123456789"
+    pesel_xxi_wiek = "00212345678"
     pesel_senior = "45123456789"
     kupon = "PROM_ABC"
 
@@ -45,6 +46,10 @@ class TestCreateBankAccount(unittest.TestCase):
         konto = Konto(self.imie, self.nazwisko, self.pesel, zly_kupon)
         self.assertEqual(konto.saldo, 0, "Saldo nie równa się 0zł po użyciu złego kuponu")
 
+    def test_kupon_rabatowy_prawidlowy_xxi_wiek(self):
+        konto = Konto(self.imie, self.nazwisko, self.pesel_xxi_wiek, self.kupon)
+        self.assertEqual(konto.saldo, 50, "Saldo nie równa się 50zł po użyciu kuponu")
+
     def test_kupon_rabatowy_dla_seniorow(self):
         konto = Konto(self.imie, self.nazwisko, self.pesel_senior, self.kupon)
-        self.assertEqual(konto.saldo, 0, "Saldo nie równa się 0zł")
+        self.assertEqual(konto.saldo, 0, "Saldo nie równa się 0zł po użyciu kuponu")
