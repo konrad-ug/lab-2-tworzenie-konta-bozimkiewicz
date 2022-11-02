@@ -4,6 +4,7 @@ class Konto:
         self.nazwisko = nazwisko
         self.saldo = 0
         self.business_acc = False
+        self.historia = []
         
         self.obsluga_peselu(pesel)
         if (self.obsluga_kuponu_rabatowego_kupon(kupon_rabatowy) 
@@ -24,16 +25,18 @@ class Konto:
         if (int(self.pesel[2:4]) > 20 or int(self.pesel[:2]) > 60):
             return True
 
-    def zaksieguj_przelew_przychodzacy(self, kwota):
+    def zaksieguj_przelew_przychodzacy(self, kwota: int):
         self.saldo += kwota
+        self.historia.append(kwota)
     
-    def zaksieguj_przelew_wychodzacy(self, kwota):
+    def zaksieguj_przelew_wychodzacy(self, kwota: int):
         if kwota > self.saldo:
             return 'Za mało środków na koncie'
         else:
             self.saldo -= kwota
+            self.historia.append(-kwota)
     
-    def wykonaj_przelew_ekspresowy(self, kwota, otrzymujacy: 'Konto'):
+    def wykonaj_przelew_ekspresowy(self, kwota: int, otrzymujacy: 'Konto'):
         if kwota > self.saldo:
             return False
         else:
@@ -45,5 +48,7 @@ class Konto:
     def oplata_za_zaksiegowanie(self):
         if self.business_acc:
             self.saldo -= 5
+            self.historia.append(-5)
         else:
             self.saldo -= 1
+            self.historia.append(-1)
