@@ -52,3 +52,6 @@ class Konto:
         else:
             self.saldo -= 1
             self.historia.append(-1)
+
+    def metoda_bez_testow(self):
+        pass
