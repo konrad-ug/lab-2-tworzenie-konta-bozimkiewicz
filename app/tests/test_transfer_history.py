@@ -4,9 +4,6 @@ from ..Konto import Konto
 from ..KontoFirmowe import KontoFirmowe
 
 class TestHistoryOfOperations(unittest.TestCase):
-    
-# dodać nieudane przelewy
-
     def test_historia_po_przelewie_przychodzacym(self):
         konto = Konto('Adam', 'Nowak', '99123456789')
         konto.saldo = 500
