@@ -52,3 +52,29 @@ class Konto:
         else:
             self.saldo -= 1
             self.historia.append(-1)
+
+    def zaciagnij_kredyt(self, kwota):
+        warunek_pierwszy = self.check_zaciagnij_kredyt_ostatnie_transakcje_wplaty()
+        warunek_drugi = self.check_zaciagnij_kredyt_suma_transakcji(kwota)
+        
+        if warunek_pierwszy or warunek_drugi:
+            self.saldo += kwota
+            return True
+        return False
+
+    def check_zaciagnij_kredyt_ostatnie_transakcje_wplaty(self):
+        if len(self.historia) < 3:
+            return False
+
+        for i in self.historia[-3:]:
+            if i < 0:
+                return False
+        return True
+
+    def check_zaciagnij_kredyt_suma_transakcji(self, kwota):
+        if len(self.historia) < 5:
+            return False
+
+        if sum(self.historia[-5:]) <= kwota:
+            return False
+        return True
