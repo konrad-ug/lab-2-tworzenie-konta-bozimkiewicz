@@ -35,16 +35,16 @@ class TestTakeALoanParameterized(unittest.TestCase):
         self.assertEqual(czy_przyznano, wynik_wniosku)
 
     @parameterized.expand([
-        ([], 1000, 0),
-        ([500, 500, 500], 1000, 1000),
-        ([-100, 500, 500, -300, 500], 1000, 1000),
-        ([500, -500, 500], 1000, 0),
-        ([-250, 500, 500, -300, 500], 1000, 0)
+        ([], 1000, 0, False),
+        ([500, 500, 500], 1000, 1000, True),
+        ([-100, 500, 500, -300, 500], 1000, 1000, True),
+        ([500, -500, 500], 1000, 0, False),
+        ([-250, 500, 500, -300, 500], 1000, 0, False)
     ])
-    def test_zaciagnij_kredyt_kwota(self, historia, kwota, saldo):
+    def test_zaciagnij_kredyt_kwota(self, historia, kwota, saldo, wynik_transakcji):
         self.konto.historia = historia
 
         self.konto.zaciagnij_kredyt(kwota)
 
         self.assertEqual(self.konto.saldo, saldo)
-    
+        self.assertEqual(self.konto.zaciagnij_kredyt(1000), wynik_transakcji)    

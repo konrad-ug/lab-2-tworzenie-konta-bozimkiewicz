@@ -50,6 +50,7 @@ class TestTakeALoan(unittest.TestCase):
         self.konto.zaciagnij_kredyt(1000)
 
         self.assertEqual(self.konto.saldo, 1000)
+        self.assertTrue(self.konto.zaciagnij_kredyt(1000))
 
     def test_zaciagnij_kredyt_kwota_dodana_warunek_drugi(self):
         self.konto.historia = [-100, 500, 500, -300, 500]
@@ -57,6 +58,7 @@ class TestTakeALoan(unittest.TestCase):
         self.konto.zaciagnij_kredyt(1000)
 
         self.assertEqual(self.konto.saldo, 1000)
+        self.assertTrue(self.konto.zaciagnij_kredyt(1000))
 
     def test_zaciagnij_kredyt_kwota_niedodana_warunek_pierwszy(self):
         self.konto.historia = [500, -500, 500]
@@ -64,6 +66,7 @@ class TestTakeALoan(unittest.TestCase):
         self.konto.zaciagnij_kredyt(1000)
 
         self.assertEqual(self.konto.saldo, 0)
+        self.assertFalse(self.konto.zaciagnij_kredyt(1000))
 
     def test_zaciagnij_kredyt_kwota_niedodana_warunek_drugi(self):
         self.konto.historia = [-250, 500, 500, -300, 500]
@@ -71,3 +74,4 @@ class TestTakeALoan(unittest.TestCase):
         self.konto.zaciagnij_kredyt(1000)
 
         self.assertEqual(self.konto.saldo, 0)
+        self.assertFalse(self.konto.zaciagnij_kredyt(1000))
