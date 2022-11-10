@@ -59,6 +59,8 @@ class Konto:
         
         if warunek_pierwszy or warunek_drugi:
             self.saldo += kwota
+            return True
+        return False
 
     def check_zaciagnij_kredyt_ostatnie_transakcje_wplaty(self):
         if len(self.historia) < 3:
