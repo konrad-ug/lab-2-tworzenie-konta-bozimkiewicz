@@ -11,8 +11,8 @@ class TestTakeALoanBusiness(unittest.TestCase):
         self.konto = KontoFirmowe(self.nazwa, self.nip)
 
     @parameterized.expand([
-        (1000, 500, [1775], True),
-        (0, 500, [1775], False),
+        (1000, 500, [-1775], True),
+        (0, 500, [-1775], False),
         (1000, 500, [], False),
         (0, 500, [], False)
 
@@ -25,8 +25,8 @@ class TestTakeALoanBusiness(unittest.TestCase):
         self.assertEqual(czy_przyznano, wynik_wniosku)
 
     @parameterized.expand([
-        (1000, 500, [1775], 1500),
-        (0, 500, [1775], 0),
+        (1000, 500, [-1775], 1500),
+        (0, 500, [-1775], 0),
         (1000, 500, [], 1000),
         (0, 500, [], 0)
 
