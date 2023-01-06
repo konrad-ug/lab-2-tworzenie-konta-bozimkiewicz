@@ -23,6 +23,10 @@ class TestAccountRegister(unittest.TestCase):
         RejestrKont.dodaj_konto(cls.konto_trzecie)
         cls.assertEqual(RejestrKont.wyszukaj_konto_osobiste("97123456789"), cls.konto_trzecie)
 
+    def test_4_usun_konto(cls):
+        RejestrKont.usun_konto_osobiste(cls.konto_trzecie.pesel)
+        cls.assertEqual(RejestrKont.zwroc_ilosc_kont(), 2)
+
     @classmethod
     def tearDownClass(cls):
         RejestrKont.konta = []
