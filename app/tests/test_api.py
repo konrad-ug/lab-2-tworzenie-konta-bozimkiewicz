@@ -9,11 +9,11 @@ class TestAPI(unittest.TestCase):
             "pesel": "99123456789"
         }
 
-    def test_stworz_konto(self):
+    def test_1_stworz_konto(self):
         response = requests.post(self.url + '/konta/stworz_konto', json=self.body)
         self.assertEqual(response.status_code, 201)
 
-    def test_wyszukaj_konto(self):
+    def test_2_wyszukaj_konto(self):
         response = requests.get(self.url + f"/konta/konto/{self.body['pesel']}")
         response_json = response.json()
 
@@ -21,3 +21,19 @@ class TestAPI(unittest.TestCase):
         self.assertEqual(response_json['imie'], self.body['imie'])
         self.assertEqual(response_json['nazwisko'], self.body['nazwisko'])
         self.assertEqual(response_json['saldo'], 0)
+
+    def test_3_zaktualizuj_konto(self):
+        new_body = {
+            "imie": "Tomasz", 
+            "nazwisko": "Nowak", 
+            "pesel": "00123456789",
+            "saldo": 500
+        }
+        response = requests.put(self.url + f"/konta/konto/{self.body['pesel']}", json=new_body)
+        
+        self.assertEqual(response.status_code, 200)
+
+    def test_4_usun_konto(self):
+        response = requests.delete(self.url + f"/konta/konto/{self.body['pesel']}")
+
+        self.assertEqual(response.status_code, 202)
