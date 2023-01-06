@@ -14,3 +14,9 @@ class RejestrKont():
         for konto in RejestrKont.konta:
             if konto.pesel == pesel:
                 return konto
+
+    @classmethod
+    def usun_konto_osobiste(cls, pesel):
+        for konto in RejestrKont.konta:
+            if konto.pesel == pesel:
+                cls.konta.remove(konto)
