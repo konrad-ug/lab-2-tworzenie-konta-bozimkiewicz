@@ -37,3 +37,14 @@ class TestAPI(unittest.TestCase):
         response = requests.delete(self.url + f"/konta/konto/{self.body['pesel']}")
 
         self.assertEqual(response.status_code, 202)
+
+    def test_5_stworz_konto_o_istniejacym_peselu(self):
+        new_body = {
+            "imie": "Tomasz", 
+            "nazwisko": "Nowak", 
+            "pesel": "99123456789"
+        }
+        requests.post(self.url + '/konta/stworz_konto', json=self.body)
+        response = requests.post(self.url + '/konta/stworz_konto', json=new_body)
+
+        self.assertEqual(response.status_code, 400)
