@@ -8,6 +8,10 @@ app = Flask(__name__)
 def stworz_konto():
   dane = request.get_json()
   print(f"Request o stworzenie konta z danymi: {dane}")
+
+  if RejestrKont.wyszukaj_konto_osobiste(dane["pesel"]):
+    return jsonify('Konto o takim peselu już istnieje!'), 400
+  
   konto = Konto(dane["imie"], dane["nazwisko"], dane["pesel"])
   RejestrKont.dodaj_konto(konto)
   return jsonify("Konto stworzone"), 201
